@@ -1,4 +1,4 @@
-✨ AI Cyber Threat Intelligence Agent /n
+✨ AI Cyber Threat Intelligence Agent 
 Automated multi-agent system for CVE lookup, threat analysis, and risk reporting.
 
 🔥 Overview
