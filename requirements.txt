@@ -1,1 +1,10 @@
-#
+google-cloud-aiplatform
+adk
+httpx
+fastapi
+uvicorn
+pydantic
+rich
+python-dotenv
+requests
+beautifulsoup4
