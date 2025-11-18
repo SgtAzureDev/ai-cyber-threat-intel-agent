@@ -1,0 +1,28 @@
+project:
+  name: "ai-cyber-threat-intel-agent"
+  description: "AI Cyber Threat Intelligence Agent built with Google ADK"
+
+web:
+  enabled: true
+  host: "127.0.0.1"
+  port: 9000
+
+agents:
+  root_agent: "app/agent.py"
+
+logging:
+  level: "INFO"
+  path: "logs/adk.log"
+
+memory:
+  enabled: true
+  path: "memory/"
+
+evaluation:
+  enabled: true
+  path: "evaluation/"
+
+observability:
+  enabled: true
+  traces: "observability/traces/"
+  metrics: "observability/metrics/"
