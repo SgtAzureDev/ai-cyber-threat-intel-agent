@@ -1,0 +1,12 @@
+[project]
+name = "ai-cyber-threat-intel-agent"
+version = "0.1.0"
+description = "AI cyber threat intelligence agent"
+requires-python = ">=3.10"
+dependencies = [
+    "google-adk",
+]
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"

@@ -1,18 +1,15 @@
 """
 Intel collector sub-agent + helper utilities.
-
-- Enriches IOCs using available tools (google_search) or lightweight stubs.
-- Exposes collector_agent (LlmAgent) to perform higher-level enrichment using LLM + tools.
 """
 
 from typing import Dict, Any, List
 from google.adk.agents.llm_agent import LlmAgent
 from google.adk.tools import google_search
 
+
 def enrich_iocs_stub(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
     """
-    Lightweight local enrichment stub. Returns a structure with each IOC and a placeholder
-    'enrichment' field. Replace or extend with real tool integrations (VT, Shodan, NVD).
+    Lightweight local enrichment stub.
     """
     enriched = {}
     for k, values in iocs.items():
@@ -26,6 +23,13 @@ def enrich_iocs_stub(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
                 }
             })
     return enriched
+
+
+# ---- REQUIRED BY AGENT LOADER ----
+def enrich_iocs(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
+    """Compatibility wrapper used by main ThreatIntelAgent."""
+    return enrich_iocs_stub(iocs)
+
 
 collector_agent = LlmAgent(
     name="IntelCollectorAgent",

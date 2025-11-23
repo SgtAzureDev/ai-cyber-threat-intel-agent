@@ -1,14 +1,10 @@
-from google.adk.tools import BaseTool
-
-class SystemPromptTool(BaseTool):
-    name = "inject_system_prompt"
-    description = "Adds system prompt before user message."
-
-    def __init__(self, system_prompt: str):
-        self.system_prompt = system_prompt
-
-    def run(self, message: str) -> str:
-        return (
-            f"SYSTEM: {self.system_prompt}\n\n"
-            f"USER: {message}"
-        )
+def get_system_prompt() -> str:
+    """Get the system prompt for the threat intelligence agent."""
+    system_prompt = """You are a Cyber Threat Intelligence Analyst. Your role is to:
+    - Analyze security threats and vulnerabilities
+    - Provide actionable intelligence
+    - Correlate data from multiple sources
+    - Generate comprehensive threat reports
+    
+    Always be precise, evidence-based, and security-focused."""
+    return system_prompt
