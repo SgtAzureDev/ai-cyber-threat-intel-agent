@@ -3,11 +3,27 @@ from google.adk.agents import LlmAgent
 from google.adk.tools import FunctionTool
 import json
 
-# Import our custom tools
+# Import ALL our custom tools from all folders
 from app.tools.cve_lookup import cve_lookup
 from app.tools.intel_scraper import scrape_threat_intel
 from app.tools.log_parser import parse_security_logs
 from app.tools.system_prompt_tool import get_system_prompt
+
+# Import memory tools
+from app.memory.longterm_memory import store_threat_intel
+from app.memory.session_store import store_session
+
+# Import evaluation tools
+from app.evaluation.threat_scoring import evaluate_threat_score
+
+# Import observability tools
+from app.observability.logs import setup_logging
+
+# Import middleware tools
+from app.middleware.system_prompt import get_enhanced_system_prompt
+
+# Import agents tools
+from app.agents.reporter import generate_clean_report
 
 # Sub-agents & functions
 from app.agents.threat_intake import extract_iocs
@@ -59,16 +75,34 @@ async def _threat_pipeline(text: str) -> str:
             "error": True
         })
 
-# Create FunctionTool instances
+# Create FunctionTool instances for ALL tools
 threat_tool = FunctionTool(_threat_pipeline)
 cve_tool = FunctionTool(cve_lookup)
 intel_tool = FunctionTool(scrape_threat_intel)
 log_tool = FunctionTool(parse_security_logs)
 prompt_tool = FunctionTool(get_system_prompt)
+store_intel_tool = FunctionTool(store_threat_intel)
+store_session_tool = FunctionTool(store_session)
+score_tool = FunctionTool(evaluate_threat_score)
+logging_tool = FunctionTool(setup_logging)
+enhanced_prompt_tool = FunctionTool(get_enhanced_system_prompt)
+clean_report_tool = FunctionTool(generate_clean_report)
 
-# Main Agent Configuration
+# Main Agent Configuration with ALL tools
 root_agent = LlmAgent(
     name="ThreatIntelAgent",
     model="gemini-2.0-flash",
-    tools=[threat_tool, cve_tool, intel_tool, log_tool, prompt_tool]
+    tools=[
+        threat_tool,           # Original threat pipeline
+        cve_tool,              # CVE lookup
+        intel_tool,            # Threat intelligence scraping
+        log_tool,              # Security log parsing
+        prompt_tool,           # System prompt getter
+        store_intel_tool,      # Threat intelligence storage
+        store_session_tool,    # Session context storage
+        score_tool,            # Threat scoring
+        logging_tool,          # Logging configuration
+        enhanced_prompt_tool,  # Enhanced capabilities
+        clean_report_tool      # Clean report generation
+    ]
 )
