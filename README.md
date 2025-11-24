@@ -53,6 +53,7 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 ### Clone repository
 ```bash
   git clone https://github.com/SgtAzureDev/ai-cyber-threat-intel-agent.git
+  cd ai-cyber-threat-intel-agent
 ```
 ### Install dependencies 
 ```python
@@ -60,11 +61,11 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 ```
 ### Google AI Studio API Key in .env file
 ```bash
-  .env/GOOGLE_API_KEY=API_KEY
+  .env/GOOGLE_API_KEY=your_api_key_here
 ```
 ### Launch web interface
 ```bash
-  adk web .
+  adk web 
 ```
 
 ## Demo
