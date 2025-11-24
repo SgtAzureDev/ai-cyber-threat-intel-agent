@@ -55,7 +55,7 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
   git clone https://github.com/SgtAzureDev/ai-cyber-threat-intel-agent.git
 ```
 ### Install dependencies 
-```bash
+```python
   pip install -r requirements.txt
 ```
 ### Google AI Studio API Key in .env file
@@ -87,8 +87,3 @@ link to demo
 ```bash
   Perform a complete threat intelligence workflow: First, look up CVE-2021-44228 to understand the vulnerability. Then, scrape current threat intelligence about Log4j exploitation campaigns. Next, parse these sample security logs: 'Multiple failed login attempts from user admin, Successful authentication from IP 192.168.1.100, Database query error at 14:30'. After that, evaluate the threat score of these findings. Store the compiled threat intelligence in long-term memory for future reference. Save the current investigation session context. Finally, generate a comprehensive clean report summarizing all the CVE details, threat intelligence, log analysis, and threat assessment with actionable recommendations.
 ```
-<pre style="white-space: pre-wrap; word-wrap: break-word;">
-<code>
-Perform a complete threat intelligence workflow: First, look up CVE-2021-44228 to understand the vulnerability. Then, scrape current threat intelligence about Log4j exploitation campaigns. Next, parse these sample security logs: 'Multiple failed login attempts from user admin, Successful authentication from IP 192.168.1.100, Database query error at 14:30'. After that, evaluate the threat score of these findings. Store the compiled threat intelligence in long-term memory for future reference. Save the current investigation session context. Finally, generate a comprehensive clean report summarizing all the CVE details, threat intelligence, log analysis, and threat assessment with actionable recommendations.
-</code>
-</pre>
