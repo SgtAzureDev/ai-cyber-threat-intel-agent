@@ -1,6 +1,5 @@
 """
-Threat intake sub-agent + helper utilities.
-- Provides a IOC extractor and normalization.
+Threat intake sub-agent 
 """
 
 import re
@@ -51,4 +50,3 @@ intake_agent = LlmAgent(
     name="ThreatIntakeAgent",
     model="gemini-2.0-flash",
 )
-
