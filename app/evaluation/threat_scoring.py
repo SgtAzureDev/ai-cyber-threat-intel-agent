@@ -1,11 +1,8 @@
 def evaluate_threat_score(threat_data: str) -> str:
     """Evaluate and score threats based on severity, impact, and confidence."""
     
-    # Mock threat scoring algorithm
-    # In real implementation, this would analyze IOCs, TTPs, context, etc.
-    base_score = 75  # Base score that gets adjusted
+    base_score = 75  
     
-    # Simple scoring logic based on threat data characteristics
     if "critical" in threat_data.lower() or "9.8" in threat_data or "10" in threat_data:
         severity_adjustment = 25
     elif "high" in threat_data.lower() or "7.0" in threat_data:
@@ -22,7 +19,6 @@ def evaluate_threat_score(threat_data: str) -> str:
     
     final_score = min(100, base_score + severity_adjustment + impact_adjustment)
     
-    # Determine threat level
     if final_score >= 90:
         threat_level = "CRITICAL"
         recommendation = "IMMEDIATE containment and response required"
@@ -76,4 +72,5 @@ Threat scores are calculated based on:
 - Business impact assessment
 - Attack sophistication
 - Propagation potential
+
 """
