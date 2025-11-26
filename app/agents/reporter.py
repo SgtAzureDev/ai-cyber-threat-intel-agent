@@ -1,3 +1,7 @@
+"""
+Reporter sub-agent
+"""
+
 from google.adk.agents.llm_agent import LlmAgent
 
 reporter_agent = LlmAgent(
