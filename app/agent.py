@@ -86,7 +86,8 @@ root_agent = LlmAgent(
         score_tool,            # Threat scoring
         logging_tool,          # Logging configuration
         enhanced_prompt_tool,  # Enhanced capabilities
-        clean_report_tool,      # Clean report generation
+        clean_report_tool,     # Clean report generation
         tracing_tool           # Observability and tracing 
     ]
 )
+
