@@ -20,11 +20,11 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 - Memory storing: Session storage + long-term threat intelligence storage
 
 ## Key Features Demonstrated
-1. **Threat Intelligence Gathering**: Automated OSINT collection and correlation
-2. **Vulnerability Assessment**: Real-time CVE analysis and impact assessment
-3. **Security Log Analysis**: Pattern recognition across diverse log formats
-4. **Investigation Memory**: Persistent session context and historical intelligence
-5. **Processing Window**: Threat Intake → IOC Extraction → Threat Scoring → Intelligence Reporting
+1. **Multi-agent System** - Sequential threat analysis pipeline
+2. **Custom Tools** - 10+ specialized security tools  
+3. **Session Management** - Persistent investigation context
+4. **Observability** - Comprehensive tracing and event logging 
+5. **Agent Evaluation** - Threat scoring and risk assessment
 
 ## Enterprise Features
 - Session persistence for complex investigations
@@ -45,7 +45,7 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 - Knowledge retention through investigation memory
 
 ## Technical Requirements
-- Python 3.8+
+- Python 3.9+
 - Google ADK Framework
 - Gemini API Access (GoogleAIStudio)
 
@@ -84,6 +84,10 @@ link to demo
 ```bash
   Store this threat intelligence: 'Phishing attacks increased by 30% in Q4 2024'
 ```
+```bash
+  Show me the agent traces
+```
+
 #### Complete Workflow for all components
 ```bash
   Perform a complete threat intelligence workflow: First, look up CVE-2021-44228 to understand the vulnerability. Then, scrape current threat intelligence about Log4j exploitation campaigns. Next, parse these sample security logs: 'Multiple failed login attempts from user admin, Successful authentication from IP 192.168.1.100, Database query error at 14:30'. After that, evaluate the threat score of these findings. Store the compiled threat intelligence in long-term memory for future reference. Save the current investigation session context. Finally, generate a comprehensive clean report summarizing all the CVE details, threat intelligence, log analysis, and threat assessment with actionable recommendations.
