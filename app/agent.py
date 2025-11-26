@@ -14,12 +14,11 @@ from app.evaluation.threat_scoring import evaluate_threat_score
 from app.observability.logs import setup_logging
 from app.observability.tracing import tracer, get_agent_traces
 from app.middleware.system_prompt import get_enhanced_system_prompt
-from app.agents.reporter import generate_clean_report
 
 # Sub-agents & functions
 from app.agents.threat_intake import extract_iocs
 from app.agents.analyzer import score_threat
-from app.agents.reporter import generate_markdown_report
+from app.agents.reporter import generate_clean_report
 
 # ----------------------------
 # Threat pipeline tool
@@ -38,7 +37,7 @@ async def _threat_pipeline(text: str) -> str:
         
         score_result = score_threat(iocs)
         
-        report = generate_markdown_report({
+        report = generate_clean_report({
             "summary": f"Threat analysis completed - Score: {score_result.get('score', 0)}/100",
             "details": iocs,
             "score": score_result,
@@ -86,8 +85,7 @@ root_agent = LlmAgent(
         score_tool,            # Threat scoring
         logging_tool,          # Logging configuration
         enhanced_prompt_tool,  # Enhanced capabilities
-        clean_report_tool,     # Clean report generation
+        clean_report_tool,      # Clean report generation
         tracing_tool           # Observability and tracing 
     ]
 )
-
