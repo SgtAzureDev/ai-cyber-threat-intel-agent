@@ -1,57 +1,77 @@
+from app.observability.tracing import tracer
+import re
+from datetime import datetime
+
 def parse_security_logs(log_data: str) -> str:
-    """Parse and analyze security logs for threats."""
-    report = f"""
-# SECURITY LOG ANALYSIS REPORT
+    """Parse and analyze security logs for threats"""
+    trace_id = tracer.start_trace("Log Analysis", "LogParser")
+    
+    try:
+        tracer.add_event("LOG_PARSE_START", f"Parsing {len(log_data)} characters of log data")
+        
+        findings = {
+            "failed_logins": 0,
+            "suspicious_ips": [],
+            "error_patterns": [],
+            "successful_logins": 0,
+            "security_events": []
+        }
+        
+        lines = log_data.split('\n')
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+                
+            if any(pattern in line.lower() for pattern in ['failed', 'denied', 'invalid', 'unauthorized']):
+                findings["failed_logins"] += 1
+                findings["security_events"].append(f"Failed authentication: {line}")
+                
+                ip_match = re.search(r'\b(?:[0-9]{1,3}\.){3}[0-9]{1,3}\b', line)
+                if ip_match and ip_match.group() not in findings["suspicious_ips"]:
+                    findings["suspicious_ips"].append(ip_match.group())
+            
+            elif any(pattern in line.lower() for pattern in ['success', 'accepted', 'authenticated']):
+                findings["successful_logins"] += 1
+            
+            elif any(pattern in line.lower() for pattern in ['error', 'exception', 'timeout', 'crash']):
+                findings["error_patterns"].append(line)
+        
+        result = f"""# SECURITY LOG ANALYSIS REPORT
+## Analysis Summary
+**Log Entries Processed**: {len(lines)}
+**Analysis Timestamp**: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
 
-### Log Data Analyzed
-"{log_data}"
+## Key Findings
+- **Failed Login Attempts**: {findings['failed_logins']}
+- **Successful Logins**: {findings['successful_logins']}
+- **Suspicious IPs Detected**: {len(findings['suspicious_ips'])}
+- **Error Patterns Found**: {len(findings['error_patterns'])}
 
-### Analysis Results
-- **Total Events Processed**: 1,247
-- **Suspicious Activities**: 23 events flagged
-- **High Severity Threats**: 5 confirmed incidents
-- **Medium Severity Alerts**: 8 potential issues
+## Detailed Analysis"""
 
-### Detailed Findings
+        if findings['suspicious_ips']:
+            result += "\n### Suspicious IP Addresses:\n"
+            for ip in findings['suspicious_ips']:
+                result += f"- {ip}\n"
 
-#### Critical Security Events
-1. **Multiple Failed Authentication Attempts**
-   - Source IP: 192.168.1.100
-   - Target: Administrative accounts
-   - Pattern: Credential stuffing attack
+        if findings['failed_logins'] > 5:
+            result += f"\n### ⚠️ SECURITY ALERT\nHigh number of failed logins ({findings['failed_logins']}) detected. Possible brute force attack."
 
-2. **Unusual Network Traffic**
-   - Protocol anomalies detected
-   - Port scanning activity identified
-   - Potential data exfiltration attempts
+        if findings['error_patterns']:
+            result += "\n### Error Patterns:\n"
+            for error in findings['error_patterns'][:5]:  
+                result += f"- {error}\n"
 
-3. **Privilege Escalation Attempts**
-   - Unauthorized access attempts to sensitive directories
-   - Suspicious process creation events
+        if not any([findings['failed_logins'], findings['suspicious_ips'], findings['error_patterns']]):
+            result += "\n### ✅ No significant security issues detected in provided logs."
 
-### Threat Assessment
-- **Overall Risk Level**: HIGH
-- **Immediate Action Required**: YES
-- **Business Impact**: POTENTIALLY SEVERE
-
-### Recommended Response Actions
-1. **Immediate (0-2 hours)**
-   - Block malicious IP addresses
-   - Isolate affected systems
-   - Initiate incident response
-
-2. **Short-term (2-24 hours)**
-   - Conduct forensic analysis
-   - Reset compromised credentials
-   - Update security controls
-
-3. **Long-term (1-7 days)**
-   - Security control review
-   - Policy updates
-   - Staff training reinforcement
-
-### Investigation Notes
-Further investigation required to determine full scope of compromise.
-Coordinate with incident response team for comprehensive analysis.
-"""
-    return report
+        tracer.add_event("LOG_PARSE_COMPLETE", f"Found {findings['failed_logins']} failed logins, {len(findings['suspicious_ips'])} suspicious IPs")
+        tracer.end_trace("completed")
+        return result
+        
+    except Exception as e:
+        tracer.add_event("LOG_PARSE_ERROR", f"Error: {str(e)}")
+        tracer.end_trace("failed", str(e))
+        return f"Error parsing logs: {str(e)}"
