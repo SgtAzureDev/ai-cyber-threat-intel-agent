@@ -1,15 +1,13 @@
 """
 Threat intake sub-agent + helper utilities.
 
-- Provides a lightweight IOC extractor (regex) and normalization.
-- Exposes intake_agent (LlmAgent) to allow LLM-powered parsing/enrichment.
+- Provides a IOC extractor (regex) and normalization.
 """
 
 import re
 from typing import Dict, List
 from google.adk.agents.llm_agent import LlmAgent
 
-# Simple, practical regexes for quick IOC extraction
 _RE_IPV4 = re.compile(r"\b(?:\d{1,3}\.){3}\d{1,3}\b")
 _RE_DOMAIN = re.compile(
     r"\b((?:[a-zA-Z0-9\-]+\.)+(?:[a-zA-Z]{2,63}))\b"
@@ -20,18 +18,10 @@ _RE_MD5 = re.compile(r"\b[a-fA-F0-9]{32}\b")
 _RE_URL = re.compile(r"\bhttps?://[^\s,;]+", re.IGNORECASE)
 
 def normalize_text(text: str) -> str:
-    """
-    Basic normalization: collapse whitespace, strip non-printables.
-    Keep it small — leave heavy cleaning to the LLM if needed.
-    """
     s = " ".join(text.split())
     return s.strip()
 
 def extract_iocs(text: str) -> Dict[str, List[str]]:
-    """
-    Extract common IOCs using fast deterministic regexes.
-    Returns a dict with lists for ips, domains, urls, hashes.
-    """
     t = text or ""
     ips = _RE_IPV4.findall(t)
     urls = _RE_URL.findall(t)
@@ -40,7 +30,6 @@ def extract_iocs(text: str) -> Dict[str, List[str]]:
     sha1 = _RE_SHA1.findall(t)
     md5 = _RE_MD5.findall(t)
 
-    # basic dedupe while preserving order
     def _uniq(seq):
         seen = set()
         out = []
@@ -59,9 +48,7 @@ def extract_iocs(text: str) -> Dict[str, List[str]]:
         "md5": _uniq(md5),
     }
 
-# LLM sub-agent: optional LLM-assisted parsing and enrichment of intake
 intake_agent = LlmAgent(
     name="ThreatIntakeAgent",
     model="gemini-2.0-flash",
- # No tools required for the intake phase by default
 )
