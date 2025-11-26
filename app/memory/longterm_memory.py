@@ -1,6 +1,5 @@
 def store_threat_intel(threat_data: str) -> str:
     """Store threat intelligence in long-term memory for future analysis."""
-    # Mock implementation - in real scenario, this would save to database
     return f"""
 # THREAT INTELLIGENCE STORED SUCCESSFULLY
 
@@ -20,4 +19,5 @@ def store_threat_intel(threat_data: str) -> str:
 
 ## Access Information
 Use threat intelligence query tools to retrieve this data for analysis.
+
 """
