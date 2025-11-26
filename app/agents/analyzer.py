@@ -1,5 +1,5 @@
 """
-Analyzer sub-agent + helpers.
+Analyzer sub-agent
 - Provides a simple scoring function and MITRE mapping stub.
 """
 
@@ -23,18 +23,13 @@ def score_threat(enriched_iocs: Dict[str, Any]) -> Dict[str, Any]:
         count = len(items or [])
         score += weights.get(k, 5) * count
 
-    # clamp to 100
     final = max(0, min(100, score))
     return {"score": final, "details": {"raw_score": score}}
 
 def map_to_mitre(summary_text: str) -> Dict[str, Any]:
-    """
-    MITRE ATT&CK mapping stub. Returns a minimal mapping structure.
-    """
     return {"techniques": [], "tactics": []}
 
 analyzer_agent = LlmAgent(
     name="ThreatAnalyzerAgent",
     model="gemini-2.0-flash",
 )
-
