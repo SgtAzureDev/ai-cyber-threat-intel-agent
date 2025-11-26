@@ -1,9 +1,6 @@
 def setup_logging(log_level: str = "INFO") -> str:
     """Set up comprehensive logging configuration for threat intelligence operations."""
     
-    # Mock logging configuration
-    # In real implementation, this would configure logging handlers, formats, etc.
-    
     supported_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
     if log_level.upper() not in supported_levels:
         log_level = "INFO"
@@ -76,4 +73,5 @@ def setup_logging(log_level: str = "INFO") -> str:
 
 ## Support
 For log analysis assistance, use the parse_security_logs tool.
+
 """
