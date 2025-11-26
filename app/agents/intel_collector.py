@@ -8,9 +8,6 @@ from google.adk.tools import google_search
 
 
 def enrich_iocs_stub(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
-    """
-    Lightweight local enrichment stub.
-    """
     enriched = {}
     for k, values in iocs.items():
         enriched[k] = []
@@ -24,12 +21,8 @@ def enrich_iocs_stub(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
             })
     return enriched
 
-
-# ---- REQUIRED BY AGENT LOADER ----
 def enrich_iocs(iocs: Dict[str, List[str]]) -> Dict[str, Any]:
-    """Compatibility wrapper used by main ThreatIntelAgent."""
     return enrich_iocs_stub(iocs)
-
 
 collector_agent = LlmAgent(
     name="IntelCollectorAgent",
