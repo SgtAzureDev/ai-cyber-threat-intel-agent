@@ -1,6 +1,5 @@
 """
 Analyzer sub-agent
-- Provides a simple scoring function and MITRE mapping stub.
 """
 
 from typing import Dict, Any
@@ -33,3 +32,4 @@ analyzer_agent = LlmAgent(
     name="ThreatAnalyzerAgent",
     model="gemini-2.0-flash",
 )
+
