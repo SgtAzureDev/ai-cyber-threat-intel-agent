@@ -1,5 +1,5 @@
 # AI Cyber Threat Intelligence Agent
-### Google AI Agents Intensive Capstone Project
+### Google x Kaggle AI Agents Intensive Capstone Project
 
 ## Overview
 In today's rapidly evolving threat landscape, security operations centers (SOCs) face overwhelming volumes of security data and alerts. This AI-powered threat intelligence agent automates critical aspects of threat investigation, correlation, and reporting, reducing mean time to detection (MTTD) and enabling security teams to focus on high value analysis.
