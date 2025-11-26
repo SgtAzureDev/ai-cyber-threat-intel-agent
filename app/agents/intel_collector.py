@@ -1,5 +1,5 @@
 """
-Intel collector sub-agent + helper utilities.
+Intel collector sub-agent
 """
 
 from typing import Dict, Any, List
@@ -29,3 +29,4 @@ collector_agent = LlmAgent(
     model="gemini-2.0-flash",
     tools=[google_search],
 )
+
