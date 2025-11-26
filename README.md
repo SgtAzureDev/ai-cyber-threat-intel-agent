@@ -45,7 +45,7 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 - Knowledge retention through investigation memory
 
 ## Technical Requirements
-- Python 3.9+
+- Python 3.10+
 - Google ADK Framework
 - Gemini API Access (GoogleAIStudio)
 
