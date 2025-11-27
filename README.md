@@ -73,10 +73,10 @@ link to demo
 
 ## Usage/Examples
 ```bash
-  Look up CVE-2021-44228
+  Look up CVE-2017-0144
 ```
 ```bash
-  Scrape threat intelligence about Log4j vulnerabilities, and generate a summary report
+  Scrape threat intelligence about Log4j vulnerabilities, and generate a report
 ```
 ```bash
   Parse these sample logs: 'Five failed logins from IP 10.0.0.5', research any known threats associated with that IP pattern, and store the findings
