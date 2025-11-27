@@ -68,8 +68,8 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
   adk web 
 ```
 
-## Demo
-![Log4j report](./demo_screenshots/log4j_report.png)
+## Demo (screenshot)
+![Log4j report](./demo_screenshots/Log4j_report.PNG)
 
 ## Usage/Examples
 ```bash
