@@ -69,7 +69,7 @@ In today's rapidly evolving threat landscape, security operations centers (SOCs)
 ```
 
 ## Demo
-link to demo
+![Log4j report](./demo_screenshots/log4j_report.png)
 
 ## Usage/Examples
 ```bash
